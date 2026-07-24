@@ -1,1 +1,6 @@
-"data/raw/\n.venv/\n__pycache__/" 
+data/raw/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env

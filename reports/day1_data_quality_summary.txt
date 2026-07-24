@@ -1,0 +1,61 @@
+DAY 1 — DATA QUALITY SUMMARY
+
+1. Dataset Ingestion
+
+* All 10 provided CSV datasets were successfully loaded using Pandas.
+* Dataset structure was inspected using shape, data types, and sample records.
+* Missing values and duplicate rows were checked as part of the initial data-quality inspection.
+
+2. Missing Data
+
+* The monthly SIP inflows dataset contains missing values in the year-over-year growth field.
+* These missing values should be reviewed in context before cleaning because the earliest observations may not have a previous-period value available for calculating year-over-year growth.
+
+3. AMFI Code Validation
+
+* Fund Master contains 40 unique schemes.
+* NAV History contains 40 unique schemes.
+* Every AMFI code present in Fund Master was found in NAV History.
+* AMFI code validation between the two provided datasets passed successfully.
+
+4. Live NAV API Ingestion
+   Live NAV data was successfully fetched for all 6 scheme codes specified in the Day 1 assignment and saved as raw CSV files.
+
+API metadata revealed that several scheme-name labels provided with the assigned scheme codes do not match the schemes currently returned by MFAPI:
+
+* 125497
+  Assignment label: HDFC Top 100
+  API result: SBI Small Cap Fund - Direct Plan - Growth
+
+* 119551
+  Assignment label: SBI Bluechip
+  API result: Aditya Birla Sun Life Banking & PSU Debt Fund - DIRECT - IDCW
+
+* 120503
+  Assignment label: ICICI Bluechip
+  API result: Axis ELSS Tax Saver Fund - Direct Plan - Growth Option
+
+* 118632
+  Assignment label: Nippon Large Cap
+  API result: Nippon India Large Cap Fund - Direct Plan Growth Plan - Growth Option
+
+* 119092
+  Assignment label: Axis Bluechip
+  API result: HDFC Money Market Fund - Growth Option - Direct Plan
+
+* 120841
+  Assignment label: Kotak Bluechip
+  API result: quant Mid Cap Fund - Growth Option - Direct Plan
+
+5. Data Quality Observation
+   The AMFI scheme code should be treated as the primary identifier when ingesting API data. Scheme names should be obtained and validated from the API metadata rather than assumed solely from manually provided labels.
+
+The mismatch between the assignment labels and live MFAPI metadata has been documented rather than manually altering the API-returned data.
+
+6. Overall Day 1 Data Quality Status
+
+* 10 provided datasets: Successfully ingested
+* Fund Master vs NAV History AMFI validation: Passed
+* Live API requests: Successful for all 6 requested codes
+* API scheme-label mismatch: Detected and documented
+* Raw source/API data: Preserved without manual modification
